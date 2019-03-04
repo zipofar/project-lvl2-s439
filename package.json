@@ -1,6 +1,6 @@
 {
   "name": "gendiff-zipofar",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "File diff generator",
   "main": "index.js",
   "files": [
@@ -11,6 +11,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test-watch": "jest --watch",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
   },
@@ -30,7 +31,8 @@
   },
   "homepage": "https://github.com/zipofar/project-lvl2-s439#readme",
   "dependencies": {
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
