@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/zipofar/project-lvl2-s439.svg?branch=master)](https://travis-ci.org/zipofar/project-lvl2-s439)
+
 # File diff generator
 
 ### About
@@ -9,3 +11,4 @@ Compares two configuration files and show a difference.
 ```
 $ sudo npm install -g gendiff-zipofar
 ```
+[![asciicast](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2.svg)](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2)
