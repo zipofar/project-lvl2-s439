@@ -1,5 +1,5 @@
 {
-  "name": "gendiff",
+  "name": "gendiff-zipofar",
   "version": "0.0.1",
   "description": "File diff generator",
   "main": "index.js",
