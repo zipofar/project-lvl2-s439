@@ -1,0 +1,50 @@
+{
+  "name": "gendiff",
+  "version": "0.0.1",
+  "description": "File diff generator",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zipofar/project-lvl2-s439.git"
+  },
+  "keywords": [
+    "diff",
+    "project",
+    "hexlet"
+  ],
+  "author": "Zipofar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zipofar/project-lvl2-s439/issues"
+  },
+  "homepage": "https://github.com/zipofar/project-lvl2-s439#readme",
+  "dependencies": {
+    "commander": "^2.19.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^1.7.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "eslint": "^5.15.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.0",
+    "jest": "^24.1.0",
+    "jest-cli": "^24.1.0"
+  }
+}
