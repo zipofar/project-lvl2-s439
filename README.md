@@ -18,3 +18,6 @@ $ sudo npm install -g gendiff-zipofar
 
 ### Parse YAML
 [![asciicast](https://asciinema.org/a/IS73Yebln6VI2e3cyh0UGOKa2.svg)](https://asciinema.org/a/IS73Yebln6VI2e3cyh0UGOKa2)
+
+### Parse INI
+[![asciicast](https://asciinema.org/a/0i72BhqKO5Kr7sNjloEUbJXej.svg)](https://asciinema.org/a/0i72BhqKO5Kr7sNjloEUbJXej)
