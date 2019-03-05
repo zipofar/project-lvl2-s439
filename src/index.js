@@ -1,10 +1,6 @@
-import fs from 'fs';
 import _ from 'lodash';
-
-const parseFile = (filePath) => {
-  const content = fs.readFileSync(filePath, 'utf8');
-  return JSON.parse(content);
-};
+import path from 'path';
+import parse from './parsers';
 
 const buildDiff = (dataBefore, dataAfter) => (
   _.union(Object.keys(dataBefore), Object.keys(dataAfter))
@@ -43,9 +39,14 @@ const diffToString = (diff) => {
   return `{\n${strDiff}\n}`;
 };
 
+const getContent = (filePath) => {
+  const ext = path.extname(filePath).substr(1);
+  return parse[ext](filePath);
+};
+
 const gendiff = (pathToFileBefore, pathToFileAfter) => {
-  const dataBefore = parseFile(pathToFileBefore);
-  const dataAfter = parseFile(pathToFileAfter);
+  const dataBefore = getContent(pathToFileBefore);
+  const dataAfter = getContent(pathToFileAfter);
   const diff = buildDiff(dataBefore, dataAfter);
   return diffToString(diff);
 };
