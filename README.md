@@ -13,5 +13,8 @@ $ sudo npm install -g gendiff-zipofar
 ```
 [![asciicast](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2.svg)](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2)
 
-### How it use
+### Parse JSON 
 [![asciicast](https://asciinema.org/a/yVqgJNF2rYeav7gMA9BW5acOv.svg)](https://asciinema.org/a/yVqgJNF2rYeav7gMA9BW5acOv)
+
+### Parse YAML
+[![asciicast](https://asciinema.org/a/IS73Yebln6VI2e3cyh0UGOKa2.svg)](https://asciinema.org/a/IS73Yebln6VI2e3cyh0UGOKa2)
