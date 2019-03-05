@@ -1,23 +1,24 @@
 import _ from 'lodash';
+import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
 
 const buildDiff = (dataBefore, dataAfter) => (
-  _.union(Object.keys(dataBefore), Object.keys(dataAfter))
+  _.union(_.keys(dataBefore), _.keys(dataAfter))
     .map((key) => {
-      if (_.has(dataAfter, key) && _.has(dataBefore, key)) {
-        const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';
-        return {
-          key,
-          state,
-          newValue: dataAfter[key],
-          oldValue: dataBefore[key],
-        };
-      }
-      if (_.has(dataAfter, key)) {
+      if (_.has(dataAfter, key) && !_.has(dataBefore, key)) {
         return { key, state: 'added', newValue: dataAfter[key] };
       }
-      return { key, state: 'removed', oldValue: dataBefore[key] };
+      if (!_.has(dataAfter, key) && _.has(dataBefore, key)) {
+        return { key, state: 'removed', oldValue: dataBefore[key] };
+      }
+      const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';
+      return {
+        key,
+        state,
+        newValue: dataAfter[key],
+        oldValue: dataBefore[key],
+      };
     })
 );
 
@@ -33,20 +34,21 @@ const diffToString = (diff) => {
       case 'added':
         return `  + ${e.key}: ${e.newValue}`;
       default:
-        return '';
+        throw new Error('State in diff is incorrect');
     }
   }).join('\n');
   return `{\n${strDiff}\n}`;
 };
 
-const getContent = (filePath) => {
+const getParsedData = (filePath) => {
   const ext = path.extname(filePath).substr(1);
-  return parse[ext](filePath);
+  const content = fs.readFileSync(filePath, 'utf8');
+  return parse[ext](content);
 };
 
 const gendiff = (pathToFileBefore, pathToFileAfter) => {
-  const dataBefore = getContent(pathToFileBefore);
-  const dataAfter = getContent(pathToFileAfter);
+  const dataBefore = getParsedData(pathToFileBefore);
+  const dataAfter = getParsedData(pathToFileAfter);
   const diff = buildDiff(dataBefore, dataAfter);
   return diffToString(diff);
 };
