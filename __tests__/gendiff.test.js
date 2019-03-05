@@ -1,20 +1,18 @@
 import fs from 'fs';
 import gendiff from '../src';
 
-const fixturesPath = `${__dirname}/__fixtures__`;
+const getPath = fileName => `${__dirname}/__fixtures__/${fileName}`;
+const expectedResult = fs.readFileSync(getPath('correctDiff.txt'), 'utf8').trim();
 
-test('gendiff_json', () => {
-  const pathToFileBefore = `${fixturesPath}/before.json`;
-  const pathToFileAfter = `${fixturesPath}/after.json`;
-  const pathToFileExpected = `${fixturesPath}/correctDiff.txt`;
-  const expected = fs.readFileSync(pathToFileExpected, 'utf8').trim();
-  expect(gendiff(pathToFileBefore, pathToFileAfter)).toBe(expected);
-});
+const testDate = [
+  [getPath('before.json'), getPath('after.json'), expectedResult],
+  [getPath('before.yml'), getPath('after.yml'), expectedResult],
+  [getPath('before.ini'), getPath('after.ini'), expectedResult],
+];
 
-test('gendiff_yaml', () => {
-  const pathToFileBefore = `${fixturesPath}/before.yml`;
-  const pathToFileAfter = `${fixturesPath}/after.yml`;
-  const pathToFileExpected = `${fixturesPath}/correctDiff.txt`;
-  const expected = fs.readFileSync(pathToFileExpected, 'utf8').trim();
-  expect(gendiff(pathToFileBefore, pathToFileAfter)).toBe(expected);
-});
+test.each(testDate)(
+  'gendiff(%s, %s)',
+  (pathToFileBefore, pathToFileAfter, expected) => {
+    expect(gendiff(pathToFileBefore, pathToFileAfter)).toBe(expected);
+  },
+);
