@@ -12,3 +12,6 @@ Compares two configuration files and show a difference.
 $ sudo npm install -g gendiff-zipofar
 ```
 [![asciicast](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2.svg)](https://asciinema.org/a/zTakePRHOgAFBLKxlKDSDquB2)
+
+### How it use
+[![asciicast](https://asciinema.org/a/yVqgJNF2rYeav7gMA9BW5acOv.svg)](https://asciinema.org/a/yVqgJNF2rYeav7gMA9BW5acOv)
