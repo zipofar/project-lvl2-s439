@@ -6,28 +6,24 @@ const parseFile = (filePath) => {
   return JSON.parse(content);
 };
 
-const buildDiff = (dataBefore, dataAfter) => {
-  const addedKeys = Object.keys(dataAfter)
-    .filter(key => (_.has(dataBefore, key) === false))
-    .map(key => ({ key, state: 'added', newValue: dataAfter[key] }));
-
-  const removedKeys = Object.keys(dataBefore)
-    .filter(key => (_.has(dataAfter, key) === false))
-    .map(key => ({ key, state: 'removed', oldValue: dataBefore[key] }));
-
-  const changedKeys = Object.keys(dataBefore)
-    .filter(key => (_.has(dataAfter, key)))
+const buildDiff = (dataBefore, dataAfter) => (
+  _.union(Object.keys(dataBefore), Object.keys(dataAfter))
     .map((key) => {
-      const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';
-      return {
-        key,
-        state,
-        newValue: dataAfter[key],
-        oldValue: dataBefore[key],
-      };
-    });
-  return _.concat(addedKeys, removedKeys, changedKeys);
-};
+      if (_.has(dataAfter, key) && _.has(dataBefore, key)) {
+        const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';
+        return {
+          key,
+          state,
+          newValue: dataAfter[key],
+          oldValue: dataBefore[key],
+        };
+      }
+      if (_.has(dataAfter, key)) {
+        return { key, state: 'added', newValue: dataAfter[key] };
+      }
+      return { key, state: 'removed', oldValue: dataBefore[key] };
+    })
+);
 
 const diffToString = (diff) => {
   const strDiff = diff.map((e) => {
