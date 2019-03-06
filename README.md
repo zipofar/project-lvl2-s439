@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/zipofar/project-lvl2-s439.svg?branch=master)](https://travis-ci.org/zipofar/project-lvl2-s439)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1dff7d84c7af7bb5d4e1/maintainability)](https://codeclimate.com/github/zipofar/project-lvl2-s439/maintainability)
 
 # File diff generator
 
