@@ -2,6 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
+import render from './renderers';
 
 const buildDiff = (dataBefore, dataAfter) => (
   _.union(_.keys(dataBefore), _.keys(dataAfter))
@@ -11,6 +12,14 @@ const buildDiff = (dataBefore, dataAfter) => (
       }
       if (!_.has(dataAfter, key) && _.has(dataBefore, key)) {
         return { key, state: 'removed', oldValue: dataBefore[key] };
+      }
+      if (_.isObject(dataBefore[key]) && _.isObject(dataAfter[key])) {
+        const children = buildDiff(dataBefore[key], dataAfter[key]);
+        return {
+          key,
+          children,
+          state: 'hasChildren',
+        };
       }
       const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';
       return {
@@ -22,23 +31,6 @@ const buildDiff = (dataBefore, dataAfter) => (
     })
 );
 
-const diffToString = (diff) => {
-  const strDiff = diff.map((e) => {
-    switch (e.state) {
-      case 'notChanged':
-        return `    ${e.key}: ${e.oldValue}`;
-      case 'hasChanged':
-        return `  + ${e.key}: ${e.newValue}\n  - ${e.key}: ${e.oldValue}`;
-      case 'removed':
-        return `  - ${e.key}: ${e.oldValue}`;
-      case 'added':
-        return `  + ${e.key}: ${e.newValue}`;
-      default:
-        throw new Error('State in diff is incorrect');
-    }
-  }).join('\n');
-  return `{\n${strDiff}\n}`;
-};
 
 const getParsedData = (filePath) => {
   const ext = path.extname(filePath).substr(1);
@@ -46,11 +38,11 @@ const getParsedData = (filePath) => {
   return parse(content, ext);
 };
 
-const gendiff = (pathToFileBefore, pathToFileAfter) => {
+const gendiff = (pathToFileBefore, pathToFileAfter, format) => {
   const dataBefore = getParsedData(pathToFileBefore);
   const dataAfter = getParsedData(pathToFileAfter);
   const diff = buildDiff(dataBefore, dataAfter);
-  return diffToString(diff);
+  return render(diff, format);
 };
 
 export default gendiff;

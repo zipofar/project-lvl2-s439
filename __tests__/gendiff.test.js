@@ -15,6 +15,6 @@ test.each(testDate)(
     const expected = fs.readFileSync(getPath(fileNameExpected), 'utf8').trim();
     const pathToFileBefore = getPath(fileNameBefore);
     const pathToFileAfter = getPath(fileNameAfter);
-    expect(gendiff(pathToFileBefore, pathToFileAfter)).toBe(expected);
+    expect(gendiff(pathToFileBefore, pathToFileAfter, 'plain')).toBe(expected);
   },
 );
