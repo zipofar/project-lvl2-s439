@@ -43,7 +43,7 @@ const diffToString = (diff) => {
 const getParsedData = (filePath) => {
   const ext = path.extname(filePath).substr(1);
   const content = fs.readFileSync(filePath, 'utf8');
-  return parse(content, { ext });
+  return parse(content, ext);
 };
 
 const gendiff = (pathToFileBefore, pathToFileAfter) => {

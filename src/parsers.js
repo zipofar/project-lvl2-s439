@@ -3,17 +3,16 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 
 const parsers = {
-  json: data => JSON.parse(data),
-  yml: data => yaml.safeLoad(data),
-  ini: data => ini.parse(data),
+  json: JSON.parse,
+  yml: yaml.safeLoad,
+  ini: ini.parse,
 };
 
-const parse = (data = '', params = { ext: 'json' }) => {
-  const { ext } = params;
-  if (!_.has(parsers, ext)) {
-    throw new Error(`No parsers for ${ext} extension`);
+const parse = (data, type) => {
+  if (!_.has(parsers, type)) {
+    throw new Error(`No parsers for ${type} extension`);
   }
-  return parsers[ext](data);
+  return parsers[type](data);
 };
 
 export default parse;
