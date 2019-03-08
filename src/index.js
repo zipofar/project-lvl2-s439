@@ -18,7 +18,7 @@ const buildDiff = (dataBefore, dataAfter) => (
         return {
           key,
           children,
-          state: 'hasChildren',
+          state: 'nested',
         };
       }
       const state = dataAfter[key] === dataBefore[key] ? 'notChanged' : 'hasChanged';

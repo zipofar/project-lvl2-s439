@@ -23,5 +23,8 @@ $ sudo npm install -g gendiff-zipofar
 ### Parse INI
 [![asciicast](https://asciinema.org/a/0i72BhqKO5Kr7sNjloEUbJXej.svg)](https://asciinema.org/a/0i72BhqKO5Kr7sNjloEUbJXej)
 
-### Render AST (fromat: plain)
+### Render AST (fromat: json)
 [![asciicast](https://asciinema.org/a/M1MmlD84kFFwbGbPaf7px7ao8.svg)](https://asciinema.org/a/M1MmlD84kFFwbGbPaf7px7ao8)
+
+### Render AST (format: plain)
+[![asciicast](https://asciinema.org/a/izah7EIvjbb1dhoM8wwaWUoWF.svg)](https://asciinema.org/a/izah7EIvjbb1dhoM8wwaWUoWF))
