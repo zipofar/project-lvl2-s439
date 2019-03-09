@@ -23,7 +23,7 @@ const renderDiff = (diff, level = 0) => {
     switch (state) {
       case 'notChanged':
         return `${indent}  ${key}: ${oldValue}`;
-      case 'hasChanged':
+      case 'changed':
         return [
           `${indent}+ ${key}: ${newValue}`,
           `${indent}- ${key}: ${oldValue}`,

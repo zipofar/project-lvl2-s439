@@ -1,0 +1,76 @@
+{
+  "notChanged": {},
+  "changedNew": {},
+  "changedOld": {},
+  "added": {
+    "group3": {
+      "fee": 100500,
+      "foo": {
+        "foo1": "foo_A",
+        "foo2": "foo_B"
+      }
+    }
+  },
+  "removed": {
+    "group2": {
+      "abc": 12345
+    }
+  },
+  "nested": {
+    "common": {
+      "notChanged": {
+        "setting1": "Value 1"
+      },
+      "changedNew": {
+        "setting3": {
+          "key": "value"
+        }
+      },
+      "changedOld": {
+        "setting3": true
+      },
+      "added": {
+        "follow": false,
+        "setting4": "blah blah",
+        "setting5": {
+          "key5": "value5"
+        }
+      },
+      "removed": {
+        "setting2": 200
+      },
+      "nested": {
+        "setting6": {
+          "notChanged": {
+            "key": "value"
+          },
+          "changedNew": {},
+          "changedOld": {},
+          "added": {
+            "ops": "vops"
+          },
+          "removed": {},
+          "nested": {}
+        }
+      }
+    },
+    "group1": {
+      "notChanged": {
+        "foo": "bar"
+      },
+      "changedNew": {
+        "baz": "bars",
+        "nest": "str"
+      },
+      "changedOld": {
+        "baz": "bas",
+        "nest": {
+          "key": "value"
+        }
+      },
+      "added": {},
+      "removed": {},
+      "nested": {}
+    }
+  }
+}

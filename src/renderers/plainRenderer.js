@@ -22,7 +22,7 @@ const renderDiff = (diff, parentKey = '') => {
     switch (state) {
       case 'notChanged':
         return null;
-      case 'hasChanged':
+      case 'changed':
         return `Property '${newKey}' was updated. From ${oldValue} to ${newValue}`;
       case 'removed':
         return `Property '${newKey}' was removed`;

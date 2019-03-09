@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import prettyRender from './prettyRenderer';
 import plainRender from './plainRenderer';
+import jsonRender from './jsonRenderer';
 
 const renderers = {
   plain: plainRender,
-  json: null,
+  json: jsonRender,
   pretty: prettyRender,
 };
 
