@@ -1,14 +1,5 @@
 import _ from 'lodash';
 
-const initObject = {
-  notChanged: {},
-  changedNew: {},
-  changedOld: {},
-  added: {},
-  removed: {},
-  nested: {},
-};
-
 const parseNumber = (value) => {
   if (_.isObject(value)) {
     return _.keys(value).reduce((acc, k) => {
@@ -19,45 +10,28 @@ const parseNumber = (value) => {
   return _.isNaN(parseInt(value, 10)) ? value : parseInt(value, 10);
 };
 
-const buildAst = (diff) => {
-  const ast = diff.reduce((acc, e) => {
-    const newValue = parseNumber(e.newValue);
-    const oldValue = parseNumber(e.oldValue);
-    const {
-      key,
-      state,
-      children,
-    } = e;
-    const {
-      notChanged,
-      changedOld,
-      changedNew,
-      removed,
-      added,
-      nested,
-    } = acc;
+const walkByAst = (ast, fn) => (
+  ast.map((e) => {
+    const newValue = fn(e.newValue);
+    const oldValue = fn(e.oldValue);
+    const { state, children } = e;
     switch (state) {
       case 'notChanged':
-        return { ...acc, notChanged: { ...notChanged, [key]: oldValue } };
+        return { ...e, oldValue };
       case 'changed':
-        return {
-          ...acc,
-          changedOld: { ...changedOld, [key]: oldValue },
-          changedNew: { ...changedNew, [key]: newValue },
-        };
+        return { ...e, newValue, oldValue };
       case 'removed':
-        return { ...acc, removed: { ...removed, [key]: oldValue } };
+        return { ...e, oldValue };
       case 'added':
-        return { ...acc, added: { ...added, [key]: newValue } };
+        return { ...e, newValue };
       case 'nested':
-        return { ...acc, nested: { ...nested, [key]: buildAst(children) } };
+        return { ...e, children: walkByAst(children, fn) };
       default:
-        throw new Error('State in diff is incorrect');
+        throw new Error('State in ast is incorrect');
     }
-  }, { ...initObject });
-  return ast;
-};
+  })
+);
 
-const renderDiff = diff => JSON.stringify(buildAst(diff));
+const renderDiff = diff => JSON.stringify(walkByAst(diff, parseNumber));
 
 export default renderDiff;
